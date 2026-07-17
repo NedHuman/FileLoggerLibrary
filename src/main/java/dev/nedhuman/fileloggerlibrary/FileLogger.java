@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.zip.GZIPOutputStream;
@@ -18,7 +20,7 @@ import java.util.zip.GZIPOutputStream;
 public class FileLogger {
 
     private final File logsDirectory;
-    private final Queue<Loggable> logs;
+    private final List<Loggable> logs;
     private boolean newLogsAdded;
     private final String currentInstanceName;
 
@@ -28,7 +30,7 @@ public class FileLogger {
      */
     public FileLogger(File logsDirectory) {
         this.logsDirectory = logsDirectory;
-        this.logs = new ConcurrentLinkedQueue<>();
+        this.logs = new LinkedList<>();
         currentInstanceName = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME).replace(":", "-");
     }
 
