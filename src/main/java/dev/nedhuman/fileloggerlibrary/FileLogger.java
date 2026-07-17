@@ -20,7 +20,7 @@ import java.util.zip.GZIPOutputStream;
 public class FileLogger {
 
     private final File logsDirectory;
-    private final List<String> logs;
+    private final List<Loggable> logs;
     private boolean newLogsAdded;
     private final String currentInstanceName;
 
@@ -39,16 +39,8 @@ public class FileLogger {
      * @param log the log
      */
     public void addLog(Loggable log) {
-        logs.add(log.log());
+        logs.add(log);
         newLogsAdded = true;
-    }
-    /**
-     * Add a log to the FileLogger
-     * @param s the log
-     */
-    public void addLog(String s) {
-        logs.add(s);
-        newLogsAdded=true;
     }
 
     public File getLogsDirectory() {
@@ -74,7 +66,7 @@ public class FileLogger {
         logFile.createNewFile();
 
         GZIPOutputStream gzipOS = new GZIPOutputStream(new FileOutputStream(logFile));
-        for(String i : logs) {
+        for(Loggable i : logs) {
             String msg = i+"\n";
             gzipOS.write(msg.getBytes(StandardCharsets.UTF_8));
         }

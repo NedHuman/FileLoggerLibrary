@@ -9,4 +9,8 @@ public interface Loggable {
      * Get the log string, which will be saved to the .log.gz file
      */
     String log();
+
+    public static Loggable of(String log) {
+        return () -> log;
+    }
 }
